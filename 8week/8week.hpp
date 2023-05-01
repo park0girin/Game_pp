@@ -13,7 +13,6 @@
 #define ANSI_COLOR_CYAN     "\x1b[36m"
 #define ANSI_COLOR_RESET    "\x1b[0m"
 
-int esc = 0;
 namespace NameSpace
 {
 	void gotoxy(int x, int y) {
@@ -76,6 +75,42 @@ namespace NameSpace
 
 		}
 
+		bool YorN() {
+			char KeyInput = _getch();
+			switch (KeyInput)
+			{
+			case Key_LEFT:
+				gotoxy(2, 6);
+				std::cout << ANSI_COLOR_YELLOW"[예]";
+				std::cout << ANSI_COLOR_RESET"   [아니오]";
+				KeyInput = _getch();
+				switch (KeyInput)
+				{
+				case Key_ENTER:
+					isGameRunning = false;
+					break;
+				default:
+					break;
+				}
+				break;
+			case Key_RIGHT:
+				gotoxy(2, 6);
+				std::cout << ANSI_COLOR_RESET"[예]";
+				std::cout << ANSI_COLOR_YELLOW"   [아니오]";
+				KeyInput = _getch();
+				switch (KeyInput)
+				{
+				case Key_ENTER:
+					break;
+				default:
+					break;
+				}
+				break;
+			default:
+				break;
+			}
+			return isGameRunning;
+		}
 		void keyEvent(char KeyInput)
 		{
 			switch (KeyInput)
@@ -83,43 +118,31 @@ namespace NameSpace
 			case Key_LEFT:	//왼쪽 화살표키
 				gotoxy(2, 5);
 				std::cout << ANSI_COLOR_YELLOW"왼쪽이 눌렸다!  " << std::endl;
-				esc = 0;
 				break;
 			case Key_RIGHT:	//오른쪽 화살표키
 				gotoxy(2, 5);
 				std::cout << ANSI_COLOR_YELLOW"오른쪽이 눌렸다!" << std::endl;
-				esc = 0;
 				break;
 				/* 27 : esc 고 게임 종료키 입니다.
 				 *	한번 눌렀을땐 일시정지
 				 *  두번 눌렀을땐 게임 종료
 				 */
 			case Key_ESC:
-				esc++;
-				if (esc == 1)
-				{
-					gotoxy(2, 5);
-					std::cout << ANSI_COLOR_CYAN"esc가 눌렸다!   " << std::endl;
-					break;
-				}
-				if (esc == 2)
-				{
-					gotoxy(2, 5);
-					std::cout << ANSI_COLOR_CYAN"게임이 종료되었다!" << std::endl;
-					esc = 0;
-					isGameRunning = false;
-				}
+				gotoxy(2, 5);
+				std::cout << ANSI_COLOR_RESET"종료하시겠습니까?" << std::endl;
+				gotoxy(2, 6);
+				std::cout << ANSI_COLOR_RESET"[예]";
+				std::cout << ANSI_COLOR_RESET"   [아니오]";
+				YorN();
+				break;
 				//gotoxy(5, 6);
 				//std::cout << ANSI_COLOR_GREEN"esc=" + esc << std::endl;
-				break;
 			case Key_ENTER:
 				gotoxy(2, 5);
 				std::cout << ANSI_COLOR_YELLOW"엔터가 눌렸다!  " << std::endl;
-				esc = 0;
 				break;
 			default:
 				gotoxy(2, 5);
-				esc = 0;
 				break;
 			}
 		}
