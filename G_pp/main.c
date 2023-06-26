@@ -34,11 +34,11 @@ enum Direction
 	Pause
 };
 
-enum Direction snakeDirection = RIGHT;
+enum Direction snakeDirection = DOWN;
 
 #define BODY_LENGTH 1400
 int deltaTime;
-int key = '\0';
+char key = '\0';
 
 int Initialize();
 int Release();
@@ -65,15 +65,14 @@ int main()
 	unsigned long time_end = GetTickCount();
 	deltaTime = GetTickCount();
 
-	key = '\0'; // 키 입력 값 초기화
+	key = 'a'; // 키 입력 값 초기화
 
 	while (isGameRunning)
 	{
-		if (_kbhit()) // 키 입력 확인
+		if (_kbhit()) 
 		{
-			printf("key");
-			key = _getch(); // 입력된 키 값 받기
-			GameState = 1;
+			printf("ㅠ"); 
+			key = _getch();
 		}
 		switch (GameState)
 		{
@@ -81,165 +80,280 @@ int main()
 			switch (snakeDirection)
 			{
 			case UP:
-				printf("위로 이동\n");
+				setCursorPos(100, 0);
+				printf("위로 이동 %c",key);
+				setCursorPos(100, 2);
+				printf("             ");
+				setCursorPos(100, 4);
+				printf("             ");
+				setCursorPos(100, 6);
+				printf("             ");
 				switch (key)
 				{
-				case 65:
+				case 'a':
+				case 'A':
 					snakeDirection = LEFT;
 					break;
-				case 68:
+				case 'd':
+				case 'D':
 					snakeDirection = RIGHT;
 					break;
-				case 83:
+				case 's':
+				case 'S':
 					snakeDirection = Pause;
 					break;
 				default:
+					snakeDirection = UP;
 					break;
 				}
+				key = '\0';
+				break;
 			case DOWN:
-				printf("아래로 이동\n");
+				setCursorPos(100, 0);
+				printf("             ");
+				setCursorPos(100, 2);
+				printf("아래로 이동 %c", key);
+				setCursorPos(100, 4);
+				printf("             ");
+				setCursorPos(100, 6);
+				printf("             ");
 				switch (key)
 				{
-				case 65:
+				case 'a':
+				case 'A':
 					snakeDirection = RIGHT;
 					break;
-				case 68:
+				case 'd':
+				case 'D':
 					snakeDirection = LEFT;
 					break;
-				case 83:
+				case 's':
+				case 'S':
 					snakeDirection = Pause;
 					break;
 				default:
+					snakeDirection = DOWN;
 					break;
 				}
+				key = '\0';
+				break;
 			case LEFT:
-				printf("왼쪽으로 이동\n");
+				setCursorPos(100, 0);
+				printf("             ");
+				setCursorPos(100, 2);
+				printf("             ");
+				setCursorPos(100, 4);
+				printf("왼쪽으로 이동 %c", key);
+				setCursorPos(100, 6);
+				printf("             ");
 				switch (key)
 				{
-				case 65:
+				case 'a':
+				case 'A':
 					snakeDirection = DOWN;
 					break;
-				case 68:
+				case 'd':
+				case 'D':
 					snakeDirection = UP;
 					break;
-				case 83:
+				case 's':
+				case 'S':
 					snakeDirection = Pause;
 					break;
 				default:
+					snakeDirection = LEFT;
 					break;
 				}
+				key = '\0';
+				break;
 			case RIGHT:
-				printf("오른쪽으로 이동\n");
+				setCursorPos(100, 0);
+				printf("             ");
+				setCursorPos(100, 2);
+				printf("             ");
+				setCursorPos(100, 4);
+				printf("             ");
+				setCursorPos(100, 6);
+				printf("오른쪽으로 이동 %c", key);
 				switch (key)
 				{
-				case 65:
+				case 'a':
+				case 'A':
 					snakeDirection = UP;
 					break;
-				case 68:
+				case 'd':
+				case 'D':
 					snakeDirection = DOWN;
 					break;
-				case 83:
+				case 's':
+				case 'S':
 					snakeDirection = Pause;
 					break;
 				default:
+					snakeDirection = RIGHT;
 					break;
 				}
+				key = '\0';
+				break;
 			default:
 				switch (key)
 				{
-				case 65:
+				case 'a':
+				case 'A':
 					snakeDirection = LEFT;
 					break;
-				case 68:
+				case 'd':
+				case 'D':
 					snakeDirection = RIGHT;
 					break;
 				default:
 					break;
 				}
+				key = '\0';
+				break;
 			}
+			UpdateSnake();
 			DrawMenu(deltaTime);
+
 			break;
 
 		case 1:
 			switch (snakeDirection)
 			{
 			case UP:
-				printf("위로 이동\n");
+				setCursorPos(100, 0);
+				printf("위로 이동");
+				setCursorPos(100, 2);
+				printf("             ");
+				setCursorPos(100, 4);
+				printf("             ");
+				setCursorPos(100, 6);
+				printf("             ");
 				switch (key)
 				{
-				case 65:
+				case 'a':
+				case 'A':
 					snakeDirection = LEFT;
 					break;
-				case 68:
+				case 'd':
+				case 'D':
 					snakeDirection = RIGHT;
 					break;
-				case 83:
+				case 's':
+				case 'S':
 					snakeDirection = Pause;
 					break;
 				default:
+					snakeDirection = UP;
 					break;
 				}
+				key = '\0';
+				break;
 			case DOWN:
-				printf("아래로 이동\n");
+				setCursorPos(100, 0);
+				printf("             ");
+				setCursorPos(100, 2);
+				printf("아래로 이동");
+				setCursorPos(100, 4);
+				printf("             ");
+				setCursorPos(100, 6);
+				printf("             ");
 				switch (key)
 				{
-				case 65:
+				case 'a':
+				case 'A':
 					snakeDirection = RIGHT;
 					break;
-				case 68:
+				case 'd':
+				case 'D':
 					snakeDirection = LEFT;
 					break;
-				case 83:
+				case 's':
+				case 'S':
 					snakeDirection = Pause;
 					break;
 				default:
+					snakeDirection = DOWN;
 					break;
 				}
+				key = '\0';
+				break;
 			case LEFT:
-				printf("왼쪽으로 이동\n");
+				setCursorPos(100, 0);
+				printf("             ");
+				setCursorPos(100, 2);
+				printf("             ");
+				setCursorPos(100, 4);
+				printf("왼쪽으로 이동");
+				setCursorPos(100, 6);
+				printf("             ");
 				switch (key)
 				{
-				case 65:
+				case 'a':
+				case 'A':
 					snakeDirection = DOWN;
 					break;
-				case 68:
+				case 'd':
+				case 'D':
 					snakeDirection = UP;
 					break;
-				case 83:
+				case 's':
+				case 'S':
 					snakeDirection = Pause;
 					break;
 				default:
+					snakeDirection = LEFT;
 					break;
 				}
+				key = '\0';
+				break;
 			case RIGHT:
-				printf("오른쪽으로 이동\n");
+				setCursorPos(100, 0);
+				printf("             ");
+				setCursorPos(100, 2);
+				printf("             ");
+				setCursorPos(100, 4);
+				printf("             ");
+				setCursorPos(100, 6);
+				printf("오른쪽으로 이동");
 				switch (key)
 				{
-				case 65:
+				case 'a':
+				case 'A':
 					snakeDirection = UP;
 					break;
-				case 68:
+				case 'd':
+				case 'D':
 					snakeDirection = DOWN;
 					break;
-				case 83:
+				case 's':
+				case 'S':
 					snakeDirection = Pause;
 					break;
 				default:
+					snakeDirection = RIGHT;
 					break;
 				}
+				key = '\0';
+				break;
 			default:
 				switch (key)
 				{
-				case 65:
+				case 'a':
+				case 'A':
 					snakeDirection = LEFT;
 					break;
-				case 68:
+				case 'd':
+				case 'D':
 					snakeDirection = RIGHT;
 					break;
 				default:
 					break;
 				}
+				key = '\0';
+				break;
 			}
+			UpdateSnake();
 			DrawBuffer(deltaTime);
 			break;
 		}
@@ -249,10 +363,7 @@ int main()
 			Sleep(33 - deltaTime);
 
 		// 입력 버퍼 비우기
-		while (_kbhit())
-			_getch();
-
-		key = '\0'; // 키 초기화
+		while (_kbhit()) _getch();
 	}
 	CHECKERROR(Release());
 
@@ -384,7 +495,6 @@ int Release()
 
 int DrawMenu(int DeltaTime)
 {
-	UpdateSnake();
 	//배경 그리기
 	SetColor(0b1111, 0b0000);
 	setCursorPos(0, 0);
@@ -420,7 +530,6 @@ int DrawMenu(int DeltaTime)
 
 int DrawBuffer(int DeltaTime)
 {
-	UpdateSnake();
 	//배경 그리기
 	SetColor(0b1111, 0b0000);
 	setCursorPos(0, 0);
