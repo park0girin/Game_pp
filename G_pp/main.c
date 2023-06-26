@@ -38,7 +38,7 @@ enum Direction snakeDirection = RIGHT;
 
 #define BODY_LENGTH 1400
 int deltaTime;
-int key;
+int key = '\0';
 
 int Initialize();
 int Release();
@@ -73,6 +73,7 @@ int main()
 		{
 			printf("key");
 			key = _getch(); // 입력된 키 값 받기
+			GameState = 1;
 		}
 		switch (GameState)
 		{
